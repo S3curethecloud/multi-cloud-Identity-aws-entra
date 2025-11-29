@@ -16,6 +16,20 @@ Zero Trust Identity Layer
 
 ---
 
+```mermaid
+flowchart TD
+
+A["<a href='../README.md'>SecureTheCloud Identity Layer</a>"] --> B["<a href='./02-entra-enterprise-app.md'>Lab 02<br>Entra Enterprise App</a>"]
+B --> C["<a href='./03-scim-provisioning.md'>Lab 03<br>SCIM Provisioning</a>"]
+C --> D["<a href='./04-permission-sets.md'>Lab 04<br>Permission Sets & RBAC</a>"]
+
+%% Styles (matching Lab 2)
+style A fill:#1F618D,stroke:#fff,stroke-width:2px,color:white
+style B fill:#2874A6,stroke:#fff,color:white
+style C fill:#1E8449,stroke:#fff,color:white
+style D fill:#A93226,stroke:#fff,color:white
+```
+
 # 🎯 **Objective**
 
 In this lab, you will:
