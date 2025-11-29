@@ -57,26 +57,26 @@ This is the core identity automation layer of Volume 1.
 
 ---
 
-🚀 Step 1 — Open the Enterprise App in Microsoft Entra
+#🚀 **Step 1 — Open the Enterprise App in Microsoft Entra**
 
-Visit: https://entra.microsoft.com
+1. Visit: https://entra.microsoft.com
 
-Go to:
+2. Go to:
 Identity → Applications → Enterprise Applications
 
-Select the Enterprise App you created in Lab 02 (e.g., SecureTheCloud)
+3. Select the Enterprise App you created in Lab 02 (e.g., SecureTheCloud)
 
 Expected:
 You should land on the Enterprise App Overview page.
 
 ---
 
-🚀 Step 2 — Open the Provisioning Blade
+#🚀 **Step 2 — Open the Provisioning Blade**
 
-From the left menu:
+1. From the left menu:
 Provisioning → Overview
 
-Under Provisioning Mode, select:
+2. Under Provisioning Mode, select:
 ✔ Automatic
 
 This tells Entra:
@@ -85,24 +85,24 @@ This tells Entra:
 
 ---
 
-🚀 Step 3 — Enter the SCIM Configuration
+# 🚀 **Step 3 — Enter the SCIM Configuration**
 
 From:
 AWS IAM Identity Center → Settings → Identity Source
 
 Copy the following into Entra:
 
-🔹 SCIM Endpoint
+###🔹 SCIM Endpoint
 
 From AWS (example):
 
 https://scim.<region>.amazonaws.com/scim/v2/
 
-🔹 SCIM Access Token
+###🔹 SCIM Access Token
 
 Paste exactly as generated from AWS.
 
-⚠️ Never upload SCIM tokens to GitHub.
+# ⚠️ Never upload SCIM tokens to GitHub.
 
 Paste into:
 Provisioning → Admin Credentials
@@ -110,16 +110,16 @@ Provisioning → Admin Credentials
 Click Test Connection.
 
 Expected:
-✔ Connection successful
-✔ No errors
+### ✔ Connection successful
+### ✔ No errors
 
 ---
 
-🚀 Step 4 — Start SCIM Provisioning
+# 🚀 Step 4 — Start SCIM Provisioning
 
-Click Save
+1. Click Save
 
-Click Start Provisioning
+2. Click Start Provisioning
 
 Provisioning runs roughly every 40 minutes.
 
