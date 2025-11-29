@@ -2,62 +2,76 @@
 ### *SecureTheCloud Identity Academy — Volume 1*
 
 ---
+
 ```mermaid
-graph TD
-    A[Federation Theory] --> B[Core Concepts]
-    A --> C[Protocols & Standards]
-    A --> D[Identity Lifecycle]
-    
-    B --> B1[Single Sign-On]
-    B --> B2[Trust Relationships]
-    B --> B3[Identity Provider]
-    B --> B4[Service Provider]
-    B --> B5[Claims & Assertions]
-    
-    C --> C1[SAML 2.0]
-    C1 --> C1_1[XML-Based]
-    C1 --> C1_2[Enterprise Focus]
-    C1 --> C1_3[Strong Security]
-    C1 --> C1_4[Web SSO Profile]
-    
-    C --> C2[OpenID Connect]
-    C2 --> C2_1[OAuth 2.0 Based]
-    C2 --> C2_2[JSON/REST API]
-    C2 --> C2_3[Web & Mobile]
-    C2 --> C2_4[ID Tokens]
-    
-    C --> C3[SCIM 2.0]
-    C3 --> C3_1[User Provisioning]
-    C3 --> C3_2[RESTful API]
-    C3 --> C3_3[CRUD Operations]
-    C3 --> C3_4[Schema Definition]
-    
-    D --> D1[Create User]
-    D --> D2[Update Profile]
-    D --> D3[Group Management]
-    D --> D4[Deactivate/Delete]
-    
-    %% Relationships between components
-    C1 -.-> B1
-    C2 -.-> B1
-    C3 -.-> D1
-    C3 -.-> D4
-    
-    B3 -.-> C1
-    B3 -.-> C2
-    B4 -.-> C1
-    B4 -.-> C2
-    
-    %% Styling
-    classDef theory fill:#e1f5fe
-    classDef protocol fill:#f3e5f5
-    classDef lifecycle fill:#e8f5e8
-    classDef concept fill:#fff3e0
-    
-    class A,B theory
-    class C,C1,C2,C3 protocol
-    class D,D1,D2,D3,D4 lifecycle
-    class B1,B2,B3,B4,B5 concept
+flowchart TD
+%% =============================
+%% SECURETHECLOUD COLOR SYSTEM
+%% =============================
+classDef blue fill:#1F618D,stroke:#ffffff,color:white,font-weight:bold;
+classDef gold fill:#F4B400,stroke:#ffffff,color:black;
+classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
+classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
+classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
+
+%% =============================
+%% ROOT NODE
+%% =============================
+A["<a href='../theory/04-federation-theory.md'>Federation Theory<br/>(SAML • OIDC • SCIM)</a>"]:::blue
+
+%% =============================
+%% PRIMARY SECTIONS
+%% =============================
+A --> B1["<a href='../theory/04-federation-theory.md#saml'>SAML 2.0</a>"]:::gold
+A --> B2["<a href='../theory/04-federation-theory.md#oidc'>OIDC / OAuth 2.0</a>"]:::teal
+A --> B3["<a href='../theory/04-federation-theory.md#scim'>SCIM Identity Lifecycle</a>"]:::orange
+A --> B4["<a href='../theory/04-federation-theory.md#federation-flow'>Federation Flow</a>"]:::slate
+A --> B5["<a href='../labs/02-entra-enterprise-app.md'>Entra → AWS Federation Lab</a>"]:::grey
+A --> B6["<a href='../labs/03-scim-provisioning.md'>SCIM Provisioning Lab</a>"]:::teal
+
+%% =============================
+%% SAML SECTION
+%% =============================
+B1 --> C1["<a href='https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf'>SAML Assertions</a>"]:::gold
+B1 --> C2["<a href='../theory/04-federation-theory.md#acs-url'>AWS ACS URL</a>"]:::gold
+B1 --> C3["<a href='../theory/04-federation-theory.md#idp-metadata'>IdP Metadata XML</a>"]:::gold
+B1 --> C4["<a href='../theory/04-federation-theory.md#sp-metadata'>SP Metadata XML</a>"]:::gold
+
+%% =============================
+%% OIDC SECTION
+%% =============================
+B2 --> D1["<a href='https://datatracker.ietf.org/doc/html/rfc6749'>OAuth 2.0 (RFC 6749)</a>"]:::teal
+B2 --> D2["<a href='https://datatracker.ietf.org/doc/html/rfc7519'>JWT (RFC 7519)</a>"]:::teal
+B2 --> D3["<a href='../theory/03-azure-entra-overview.md#oidc-apps'>OIDC App Registrations</a>"]:::teal
+B2 --> D4["<a href='../theory/04-federation-theory.md#id-tokens'>ID Tokens</a>"]:::teal
+
+%% =============================
+%% SCIM SECTION
+%% =============================
+B3 --> E1["<a href='https://datatracker.ietf.org/doc/html/rfc7643'>SCIM Core Schema (RFC 7643)</a>"]:::orange
+B3 --> E2["<a href='https://datatracker.ietf.org/doc/html/rfc7644'>SCIM API Spec (RFC 7644)</a>"]:::orange
+B3 --> E3["<a href='../labs/03-scim-provisioning.md#group-sync'>Group Provisioning</a>"]:::orange
+B3 --> E4["<a href='../labs/03-scim-provisioning.md#user-sync'>User Provisioning</a>"]:::orange
+
+%% =============================
+%% FEDERATION FLOW (CLICKABLE)
+%% =============================
+B4 --> F1["<a href='../theory/04-federation-theory.md#user-authenticates'>1. User Authenticates</a>"]:::slate
+B4 --> F2["<a href='../theory/05-identity-governance.md#conditional-access'>2. Conditional Access Policies</a>"]:::slate
+B4 --> F3["<a href='../theory/04-federation-theory.md#token-issued'>3. Token Issued (SAML/OIDC)</a>"]:::slate
+B4 --> F4["<a href='../theory/06-permission-sets-rbac.md#permission-set-mapping'>4. Role Mapping via Permission Sets</a>"]:::slate
+B4 --> F5["<a href='../labs/01-aws-identity-center.md#aws-console-access'>5. Session Access Granted</a>"]:::slate
+
+%% =============================
+%% LABS
+%% =============================
+B5 --> G1["<a href='../labs/02-entra-enterprise-app.md#configure-sso'>Configure SSO</a>"]:::grey
+B5 --> G2["<a href='../labs/02-entra-enterprise-app.md#metadata-exchange'>Metadata Exchange</a>"]:::grey
+B5 --> G3["<a href='../labs/02-entra-enterprise-app.md#saml-test'>Test SAML Login</a>"]:::grey
+
+B6 --> H1["<a href='../labs/03-scim-provisioning.md#provision-users'>Provision Users</a>"]:::teal
+B6 --> H2["<a href='../labs/03-scim-provisioning.md#provision-groups'>Provision Groups</a>"]:::teal
 ```
 
 # 🎯 Chapter Objective  
