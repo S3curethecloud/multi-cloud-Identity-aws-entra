@@ -15,6 +15,56 @@ https://www.youtube.com/@SecureTheCloud-dev
 
 ---
 
+```mermaid
+flowchart TD
+
+%% =============================
+%% STC BRAND COLORS
+%% =============================
+classDef stcBlue fill:#1F618D,stroke:#ffffff,color:white;
+classDef gold fill:#F4B400,stroke:#ffffff,color:black;
+classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
+classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
+classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+
+%% =============================
+%% ROOT SECTION
+%% =============================
+A["<a href='../README.md'>Identity Foundations</a>"]:::stcBlue
+
+A --> B["<a href='01-identity-foundations.md#authentication-vs-authorization'>Authn vs Authz</a>"]:::gold
+A --> C["<a href='01-identity-foundations.md#identity-planes'>Identity Planes</a>"]:::teal
+A --> D["<a href='01-identity-foundations.md#identity-lifecycle'>Identity Lifecycle</a>"]:::orange
+A --> E["<a href='01-identity-foundations.md#cloud-identity'>Cloud Identity Models</a>"]:::slate
+
+%% =============================
+%% Authn vs Authz
+%% =============================
+B --> B1["Authentication:<br/>Are you who you claim?"]:::gold
+B --> B2["Authorization:<br/>What can you do?"]:::gold
+
+%% =============================
+%% Identity Planes
+%% =============================
+C --> C1["Control Plane<br/>(Entra ID)"]:::teal
+C --> C2["Access Plane<br/>(AWS IAM Identity Center)"]:::teal
+
+%% =============================
+%% Identity Lifecycle
+%% =============================
+D --> D1["Create"]:::orange
+D --> D2["Update"]:::orange
+D --> D3["Deactivate/Delete"]:::orange
+
+%% =============================
+%% Cloud Identity Models
+%% =============================
+E --> E1["Identity Provider (IdP)"]:::slate
+E --> E2["Service Provider (SP)"]:::slate
+E --> E3["Claims + Tokens"]:::slate
+```
+
 # 🌍 Overview  
 Identity is the core control plane of all Zero Trust architectures.  
 Before traffic is allowed, before permissions are granted, before data is accessed — **identity must be verified, authenticated, and authorized.**
