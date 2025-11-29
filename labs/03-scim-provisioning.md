@@ -11,12 +11,9 @@
 ---
 
 </div>
+
 ```mermaid
 flowchart LR
-    %% ==========================
-    %% STC LAB 03 — CLICKABLE SCIM MAP
-    %% ==========================
-
     A["<a href='../02-entra-enterprise-app.md'>Entra<br/>Enterprise App</a>"]:::start
     B["<a href='../01-aws-identity-center.md'>AWS IAM Identity Center<br/>(SP)</a>"]:::core
     C["<a href='#step-3-enter-the-scim-configuration'>SCIM Endpoint</a>"]:::step
