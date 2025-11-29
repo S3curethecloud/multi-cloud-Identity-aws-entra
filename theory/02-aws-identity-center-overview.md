@@ -19,7 +19,7 @@ flowchart TD
 %% ======================
 %% ROOT
 %% ======================
-A[<b>AWS IAM Identity Center</b><br/>(Formerly AWS SSO)]:::root
+A[<b>AWS IAM Identity Center</b><br/>(Formerly AWS SSO]:::root
 
 %% ======================
 %% CORE COMPONENTS
