@@ -76,6 +76,7 @@ class C1,C2,C3,D1,D2,E1,E2,E3,F1,F2,F3 item;
 ```
 ---
 🧰 Prerequisites
+___
 ✔ Lab 01 — AWS IAM Identity Center (SSO)
 ✔ Lab 02 — Create Enterprise App (SAML Federation)
 ✔ SCIM URL + Access Token from AWS Identity Center
