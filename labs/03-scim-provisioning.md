@@ -89,13 +89,13 @@ AWS IAM Identity Center → Settings → Identity Source
 
 Copy the following into Entra:
 
-###🔹 SCIM Endpoint
+### 🔹 SCIM Endpoint
 
 From AWS (example):
 
 https://scim.<region>.amazonaws.com/scim/v2/
 
-###🔹 SCIM Access Token
+### 🔹 SCIM Access Token
 
 Paste exactly as generated from AWS.
 
