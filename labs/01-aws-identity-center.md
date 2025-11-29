@@ -15,6 +15,63 @@ https://www.youtube.com/@SecureTheCloud-dev
 
 ---
 
+```mermaid
+flowchart TD
+
+%% =============================
+%% SECURETHECLOUD COLOR SYSTEM
+%% =============================
+classDef blue fill:#1F618D,stroke:#ffffff,color:white,font-weight:bold;
+classDef gold fill:#F4B400,stroke:#ffffff,color:black;
+classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
+classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
+classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
+
+%% =============================
+%% ROOT NODE
+%% =============================
+A["<a href='../labs/01-aws-identity-center.md'>Lab 01 — Configure AWS IAM Identity Center (SSO)</a>"]:::blue
+
+%% =============================
+%% MAJOR STEPS
+%% =============================
+A --> B1["<a href='../labs/01-aws-identity-center.md#step-1-open-aws-identity-center'>Step 1 — Open AWS IAM Identity Center</a>"]:::gold
+A --> B2["<a href='../labs/01-aws-identity-center.md#step-2-set-identity-source'>Step 2 — Set Identity Source</a>"]:::teal
+A --> B3["<a href='../labs/01-aws-identity-center.md#step-3-configure-sso-settings'>Step 3 — Configure SSO Settings</a>"]:::orange
+A --> B4["<a href='../labs/01-aws-identity-center.md#step-4-connect-entra-id'>Step 4 — Connect Entra ID</a>"]:::slate
+A --> B5["<a href='../labs/01-aws-identity-center.md#step-5-test-login'>Step 5 — Test SSO Login</a>"]:::grey
+A --> B6["<a href='../labs/02-entra-enterprise-app.md'>Next Lab — Configure Entra Enterprise App (SAML)</a>"]:::teal
+
+%% =============================
+%% STEP DETAILS (CLICKABLE)
+%% =============================
+
+%% STEP 1
+B1 --> C1["<a href='https://console.aws.amazon.com/singlesignon'>AWS IAM Identity Center Console</a>"]:::gold
+B1 --> C2["<a href='../theory/02-aws-identity-center-overview.md'>Understand Identity Center (Theory 02)</a>"]:::gold
+
+%% STEP 2
+B2 --> D1["<a href='../theory/04-federation-theory.md#identity-source'>Identity Source Theory</a>"]:::teal
+B2 --> D2["<a href='../labs/03-scim-provisioning.md'>Prepare SCIM (Lab 03)</a>"]:::teal
+
+%% STEP 3
+B3 --> E1["<a href='../theory/04-federation-theory.md#saml'>SAML Basics (Theory 04)</a>"]:::orange
+B3 --> E2["<a href='../theory/04-federation-theory.md#oidc'>OIDC Basics (Theory 04)</a>"]:::orange
+B3 --> E3["<a href='../theory/06-permission-sets-rbac.md#session-settings'>Session Settings (Permission Sets)</a>"]:::orange
+
+%% STEP 4
+B4 --> F1["<a href='../labs/02-entra-enterprise-app.md'>Configure SAML App in Entra (Lab 02)</a>"]:::slate
+B4 --> F2["<a href='../theory/03-azure-entra-overview.md'>Entra Enterprise Apps (Theory 03)</a>"]:::slate
+
+%% STEP 5
+B5 --> G1["<a href='../labs/01-aws-identity-center.md#validate-aws-console-access'>Validate AWS Console Access</a>"]:::grey
+B5 --> G2["<a href='../labs/01-aws-identity-center.md#validate-cli-access'>Validate AWS CLI Access</a>"]:::grey
+
+%% NEXT LAB LINK
+B6 --> H1["<a href='../labs/02-entra-enterprise-app.md#step-1-create-enterprise-app'>Start Lab 02</a>"]:::teal
+```
+
 # 🎯 **Objective**
 
 In this lab, you will:
