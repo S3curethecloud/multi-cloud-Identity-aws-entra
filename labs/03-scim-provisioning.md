@@ -44,7 +44,7 @@ This is the core identity automation layer of Volume 1.
 
 ---
 
-🧩 Prerequisites
+# 🧩 **Prerequisites**
 
 ✔ Lab 01 — AWS IAM Identity Center
 ✔ Lab 02 — Microsoft Entra Enterprise App (SAML Federation)
