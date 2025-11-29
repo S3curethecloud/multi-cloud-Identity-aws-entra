@@ -1,16 +1,17 @@
-🛡️ SecureTheCloud Identity Academy — Volume 1
+#🛡️ SecureTheCloud Identity Academy — Volume 1
 
-Lab 03 — SCIM Provisioning (Microsoft Entra → AWS IAM Identity Center)
----
-
-
-
-![Identity Banner](../diagrams/identity-banner.png)
----
-
-
+## **Lab 03 — SCIM Provisioning (Microsoft Entra → AWS IAM Identity Center)**
 Zero Trust Identity Layer
 
+---
+
+<div align="center">
+ 
+![Identity Banner](../diagrams/identity-banner.png)
+
+</div>
+
+---
 
 🔗 https://SecureTheCloud.dev
 
@@ -22,21 +23,21 @@ Zero Trust Identity Layer
 
 In this lab, you will:
 
-Configure SCIM Provisioning from Microsoft Entra ID → AWS IAM Identity Center
+-Configure SCIM Provisioning from Microsoft Entra ID → AWS IAM Identity Center
 
-Enable automatic:
+-Enable automatic:
 
-User creation
+-User creation
 
-Group creation
+-Group creation
 
-User/group membership sync
+-User/group membership sync
 
-Deactivation
+-Deactivation
 
-Validate SCIM connection
+-Validate SCIM connection
 
-Sync Entra security groups into AWS Identity Center
+-Sync Entra security groups into AWS Identity Center
 
 Prepare for Lab 04 — Permission Sets Assignment
 
@@ -46,13 +47,14 @@ This is the core identity automation layer of Volume 1.
 
 # 🧩 **Prerequisites**
 
-✔ Lab 01 — AWS IAM Identity Center
-✔ Lab 02 — Microsoft Entra Enterprise App (SAML Federation)
-✔ AWS SSO URL (captured in Lab 01)
-✔ SCIM Endpoint
-✔ SCIM Access Token (generated from AWS IAM Identity Center)
-✔ Entra ID Admin permissions
-✔ At least one Entra Security Group created (e.g., AWS-Developers)
+### ✔ Lab 01 — AWS IAM Identity Center
+### ✔ Lab 02 — Microsoft Entra Enterprise App (SAML Federation)
+### ✔ AWS SSO URL (captured in Lab 01)
+### ✔ SCIM Endpoint
+### ✔ SCIM Access Token (generated from AWS IAM Identity Center)
+### ✔ Entra ID Admin permissions
+### ✔ At least one Entra Security Group created (e.g., AWS-Developers)
+
 ---
 
 🚀 Step 1 — Open the Enterprise App in Microsoft Entra
