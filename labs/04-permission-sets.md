@@ -17,7 +17,7 @@
 
 ---
 
-# 🎯 Lab Objective
+# 🎯 **Objective**
 
 In this lab, you will configure **authorization** for your federated identity platform by mapping:
 
@@ -26,6 +26,7 @@ In this lab, you will configure **authorization** for your federated identity pl
 - ✔ AWS **Accounts / OUs**
 
 This is where **enterprise-grade RBAC** becomes real.
+---
 
 ### **Identity Flow Summary**
 
@@ -70,19 +71,19 @@ classDef step fill:#E8F6F3,stroke:#117864,color:#0B5345,font-weight:bold;
 classDef item fill:#FEF9E7,stroke:#B7950B,color:#7D6608;
 ```
 ---
-🧰 Prerequisites
+# 🧰 **Prerequisites**
 
-✔ Lab 01 — IAM Identity Center
+### ✔ Lab 01 — IAM Identity Center
 
-✔ Lab 02 — Entra Enterprise App (SAML)
+### ✔ Lab 02 — Entra Enterprise App (SAML)
 
-✔ Lab 03 — SCIM Provisioning
+### ✔ Lab 03 — SCIM Provisioning
 
-✔ Groups synced successfully
+### ✔ Groups synced successfully
 
-✔ One or more AWS accounts in Organizations
+### ✔ One or more AWS accounts in Organizations
 
-🚀 Step 1 — View Synced Groups
+# 🚀 **Step 1 — View Synced Groups**
 
 Navigate:
 
@@ -91,49 +92,49 @@ IAM Identity Center → Groups
 
 You should see:
 
-AWS-Developers
+- AWS-Developers
 
-AWS-Admins
+- AWS-Admins
 
-AWS-ReadOnly
+- AWS-ReadOnly
 
-Any custom groups
+- Any custom groups
 
 These were synced in Lab 03 — SCIM Provisioning.
 
-🚀 Step 2 — Create a Permission Set
+# 🚀 **Step 2 — Create a Permission Set**
 
 Navigate:
 
-IAM Identity Center → Permission Sets → Create Permission Set
+- IAM Identity Center → Permission Sets → Create Permission Set
 
 
 Choose one:
 
-⭐ Option A — AWS Managed Policies
+# ⭐ *Option A — AWS Managed Policies*
 
 Examples:
 
-ReadOnlyAccess
+- ReadOnlyAccess
 
-PowerUserAccess
+- PowerUserAccess
 
 AdministratorAccess
 
-⭐ Option B — Custom Permission Set (recommended)
+# ⭐ *Option B — Custom Permission Set (recommended)*
 
 Click:
 
-Create a custom permission set
+> Create a custom permission set
 
 
-Recommended:
+# Recommended:
 
 Setting	Value
-Name	stc-dev-ps, stc-admin-ps
-Session Duration	1 hour
-Relay State	Default
-Permissions	Custom JSON
+- Name	stc-dev-ps, stc-admin-ps
+- Session Duration	1 hour
+- Relay State	Default
+- Permissions	Custom JSON
 
 Example Least Privilege Dev Policy
 
@@ -145,7 +146,7 @@ Example Least Privilege Dev Policy
   ]
 }
 
-🚀 Step 3 — Assign Permission Set to Group
+# 🚀 **Step 3 — Assign Permission Set to Group**
 
 Navigate:
 
@@ -175,7 +176,7 @@ Trust policy
 
 Permission boundaries
 
-🚀 Step 4 — Validate AWS Role Creation
+# 🚀 **Step 4 — Validate AWS Role Creation**
 
 Navigate:
 
