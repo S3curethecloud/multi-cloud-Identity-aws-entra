@@ -11,266 +11,211 @@
 ---
 
 </div>
-
-🧭 Lab Objective
-
-In this lab, you will configure:
-
-✔ SCIM Provisioning in Microsoft Entra
-✔ Automatic User + Group Sync to AWS
-✔ Mapping Entra Security Groups → AWS Permission Assignments
-✔ Validating user propagation
-✔ Testing identity lifecycle (Create, Update, Deactivate action)
-
-This enables AWS IAM Identity Center to receive:
-
-Users (identity objects)
-
-Groups (role containers)
-
-Memberships (authorization relationship)
-
-Lifecycle Actions (create/update/delete)
-
-This is critical for Zero Trust because:
-
-Identity must flow from IdP → SP consistently and automatically.
-No manual IAM users. No drift. No shadow identities.
-
-🧩 Clickable SCIM Provisioning Diagram
-Every box below is clickable and links to the correct folder or lab.
-
 ```mermaid
+flowchart LR
+    %% ==========================
+    %% STC LAB 03 — CLICKABLE SCIM MAP
+    %% ==========================
 
-flowchart TD
+    A["<a href='../02-entra-enterprise-app.md'>Entra<br/>Enterprise App</a>"]:::start
+    B["<a href='../01-aws-identity-center.md'>AWS IAM Identity Center<br/>(SP)</a>"]:::core
+    C["<a href='#step-3-enter-the-scim-configuration'>SCIM Endpoint</a>"]:::step
+    D["<a href='#step-3-enter-the-scim-configuration'>SCIM Access Token</a>"]:::step
+    E["<a href='#step-4-validate-scim-sync'>Sync Users</a>"]:::step
+    F["<a href='#step-4-validate-scim-sync'>Sync Groups</a>"]:::step
+    G["<a href='../README.md'>Return to Volume 1</a>"]:::return
 
-%% ROOT
-A["<a href='../theory/04-federation-theory.md'><b>Federation & Provisioning Layer</b></a>"] --> B["<a href='../labs/03-scim-provisioning.md'><b>SCIM Provisioning</b><br/>Entra → AWS</a>"]
+    %% FLOW
+    A --> C
+    A --> D
+    C --> E
+    D --> E
+    E --> F
+    F --> B
+    B --> G
 
-%% ENTRA SETUP
-B --> C1["<a href='https://entra.microsoft.com'>Create Enterprise App</a>"]
-B --> C2["Enable Provisioning Module<br/>(Entra)"]
-B --> C3["Assign Security Groups<br/>(Source of truth)"]
+    %% STYLES
+    classDef start fill:#1B4F72,stroke:#fff,color:#fff,font-weight:bold
+    classDef core fill:#21618C,stroke:#fff,color:white,font-weight:bold
+    classDef step fill:#EBF5FB,stroke:#1B4F72,color:#1B2631
+    classDef return fill:#F9EBEA,stroke:#922B21,color:#922B21,font-weight:bold
+    ```
+📘 Overview
+SCIM (System for Cross-Domain Identity Management) enables:
 
-%% SCIM CONFIG VALUES
-B --> D1["<a href='../labs/01-aws-identity-center.md'>AWS SCIM Endpoint URL</a>"]
-B --> D2["<a href='../labs/01-aws-identity-center.md'>SCIM Access Token</a>"]
+✔ Automatic user creation
+✔ Automatic group creation
+✔ Automatic user → group membership sync
+✔ Automatic deactivation
+✔ No manual IAM users
+✔ No drift
+✔ Zero Shadow Identities
+✔ True Zero Trust Workforce Identity
 
-%% AWS RECEIVES OBJECTS
-B --> E1["Users<br/>(Provisioned in AWS)"]
-B --> E2["Groups<br/>(Provisioned in AWS)"]
-B --> E3["Group Memberships<br/>(Role mapping)"]
+This lab configures SCIM Provisioning from Microsoft Entra to AWS IAM Identity Center.
 
-%% IDENTITY LIFECYCLE
-B --> F1["Create<br/>User"] 
-B --> F2["Update<br/>Attributes"] 
-B --> F3["Deactivate<br/>Access"]
+🧱 Prerequisites
+Before starting, complete:
 
-%% STYLE
-classDef root fill:#1F618D,stroke:#fff,color:white,font-weight:bold;
-classDef step fill:#E8F6F3,stroke:#117864,color:#0B5345;
-classDef item fill:#FEF9E7,stroke:#B7950B,color:#7D6608;
-class A root;
-class B step;
-class C1,C2,C3,D1,D2,E1,E2,E3,F1,F2,F3 item;
-```
----
-🧰 Prerequisites
-
-✔ Lab 01 — AWS IAM Identity Center (SSO)
-✔ Lab 02 — Create Enterprise App (SAML Federation)
-✔ SCIM URL + Access Token from AWS Identity Center
-✔ Azure admin access
-✔ At least one Entra security group created (e.g., AWS-Developers)
-
----
-
+✔ Lab 01 — AWS IAM Identity Center
+✔ Lab 02 — Microsoft Entra Enterprise App (SAML Federation)
+✔ AWS SSO URL (captured in Lab 01)
+✔ SCIM URL (from AWS Identity Center)
+✔ SCIM Access Token (from AWS Identity Center)
+✔ Entra Admin permissions
+✔ At least one Entra Security Group created
 🚀 Step 1 — Open the Enterprise App in Microsoft Entra
-
-Visit:
+Visit
 https://entra.microsoft.com
 
-Navigate to:
+Go to:
 Identity → Applications → Enterprise Applications
 
-Select the app you created in Lab 02:
-AWS IAM Identity Center — SecureTheCloud
+Select the app you created in Lab 02 (e.g., SecureTheCloud)
 
-You should now be on the Overview page.
+You should land on the Overview page.
 
 🚀 Step 2 — Open the Provisioning Blade
-
-In the left menu, click:
-Provisioning
-
-Under Provisioning Mode, select:
-
-Automatic
-
-
-This tells Entra:
-➡ "I will sync objects into AWS automatically using SCIM."
-
-🚀 Step 3 — Enter the SCIM Configuration
-
-From AWS IAM Identity Center → Settings → Identity Source, copy:
-
-SCIM Endpoint
-
-SCIM Access Token
-
-Paste into Entra:
-
-Setting	Value
-Tenant URL	SCIM Endpoint
-Secret Token	SCIM Access Token
-
-Click Test Connection
-
-💡 Expected result:
-
-Connection succeeded.
-
-
-If it fails:
-
-Token expired → regenerate in AWS
-
-Wrong region → ensure us-east-1 (or your chosen region)
-
-Wrong endpoint → ensure it ends in /scim/v2
-
-🚀 Step 4 — Configure Attribute Mappings
-
-Scroll to Mappings
-
-Configure:
-
-User Mapping
-Entra Attribute	AWS SCIM Equivalent
-displayName	name
-mail	userName
-givenName	givenName
-surname	familyName
-objectId	externalId
-accountEnabled	active
-Group Mapping
-Entra Attribute	AWS Equivalent
-displayName	displayName
-objectId	externalId
-members	members
-
-Click Save.
-
-🚀 Step 5 — Assign Security Groups (Source of Truth)
-
-Navigate to:
-
-Enterprise App → Users and Groups
-
-Click:
-
-+ Add user/group
-
-
-Add:
-
-Your test admin group
-
-A production group (e.g., AWS-Developers)
-
-Your own test user
-
-This defines:
-
-“Which identities should be synced to AWS?”
-
-🚀 Step 6 — Start Provisioning Job
-
-Go back to:
+On the left navigation menu:
 
 Provisioning → Overview
 
-Click:
+Under Provisioning Mode, choose:
 
-Start provisioning
+Automatic
 
+This tells Entra:
 
-The first sync takes 5–15 minutes.
+✔ “I will sync objects into AWS IAM Identity Center using SCIM.”
 
-You can monitor progress in:
+🚀 Step 3 — Enter the SCIM Configuration
+<a id="step-3-enter-the-scim-configuration"></a>
 
-Provisioning Logs
+From AWS IAM Identity Center:
 
-🚀 Step 7 — Validate Sync in AWS IAM Identity Center
+Settings → Identity Source → SCIM
 
+Copy the following into Entra:
+
+🔹 SCIM Endpoint
+Example:
+
+bash
+Copy code
+https://scim.<region>.amazonaws.com/scim/v2/<GUID>
+🔹 SCIM Access Token
+Paste exactly as generated from AWS.
+
+⚠️ Never upload tokens to GitHub.
+
+After entering both values:
+
+➡️ Click Test Connection
+➡️ Expected result: Connection successful
+
+🚀 Step 4 — Validate SCIM Sync
+<a id="step-4-validate-scim-sync"></a>
+
+Scroll down in Entra to:
+
+Mappings → Provision Azure Active Directory Users
+
+Ensure:
+
+✔ Enabled
+✔ Attribute mappings look correct
+✔ "Provisioning Status" shows Healthy
+
+Now click:
+
+Start Provisioning
+
+Expected Results:
+👤 Users
+Entra automatically pushes synced users into:
+
+AWS IAM Identity Center → Users
+
+👥 Groups
+Entra pushes Group info into:
+
+AWS IAM Identity Center → Groups
+
+You should see groups like:
+
+AWS-Developers
+
+AWS-Admins
+
+AWS-ReadOnly
+
+Any Custom SGs you created
+
+✔ No manual IAM creation
+✔ No drift
+✔ Zero Trust lifecycle in place
+
+🧪 Step 5 — Test SCIM End-to-End
 Go to:
 
-AWS Console → IAM Identity Center → Users
+AWS IAM Identity Center → Groups
 
-You should see:
+You should see synced groups and membership:
 
-✔ Users from Entra synced
-✔ Groups synced
-✔ Membership mapped
+AWS-Developers (members from Entra)
 
-If not:
+AWS-Admins
 
-Fix checklist:
+Any custom groups
 
-Entra admin consent missing
+Then check:
 
-Missing attribute mappings
+Users → Assigned Groups
 
-Group missing members
+Identity MUST flow from:
 
-Token expired
+IdP (Entra) → SP (AWS)
 
-SCIM service disabled
+This validates:
 
-🧪 Step 8 — Test Identity Lifecycle
-1️⃣ Create
+✔ Federation
+✔ SCIM
+✔ Group mapping
+✔ Zero Trust identity lifecycle
 
-Create a new user in Entra → sync to AWS
+🧠 Lab Completion Checklist
+Check	Item
+✔	SCIM Endpoint configured
+✔	SCIM Token configured
+✔	Test Connection successful
+✔	Sync started
+✔	Users synced
+✔	Groups synced
+✔	No errors in provisioning logs
+✔	Identity flow established (IdP → SP)
 
-2️⃣ Update
+🎉 Next Lab — Permission Sets Assignment (RBAC at Scale)
+👉 Proceed to:
+🔗 Lab 04 — Permission Sets Assignment
+04-permission-sets.md
 
-Change user’s displayName → should update in AWS
+Or return to theory:
 
-3️⃣ Deactivate
+🔗 Chapter 05 — Zero Trust Identity Principles
+🔗 Chapter 06 — Permission Sets & Enterprise RBAC
 
-Disable user in Entra → AWS should set active=false
-
-4️⃣ Remove group membership
-
-User loses role → AWS removes assignments
-
-This confirms your federation + provisioning workflow is healthy.
-
-📦 Lab Completion Checklist
-
-✔ SCIM connection tested
-✔ User mapping correct
-✔ Group mapping correct
-✔ Provisioning logs successful
-✔ Users appear in AWS IAM Identity Center
-✔ Groups appear in AWS
-✔ Lifecycle events propagate
-
-⏭️ Next Lab
-
-➡ Lab 04 — Permission Set Assignment (RBAC at Scale)
-👉 04-permission-sets.md
-
-Return to Theory:
-➡ ../theory/06-permission-sets-rbac.md
----
+🏁 Back to Volume 1 Home
+📘 https://github.com/S3curethecloud/multi-cloud-Identity-aws-entra
 
 <div align="center">
 
-<img src="../diagrams/securethecloud-logo.png" alt="SecureTheCloud Logo" width="90"/>
+© 2025 SecureTheCloud.dev — All Rights Reserved
+Zero Trust • Multi-Cloud • Enterprise Architecture
 
-### **© 2025 SecureTheCloud — All Rights Reserved**
-Zero Trust • Cloud Security • Multi-Cloud Architecture
+Terms •
+Privacy •
+Status •
+Community •
+Docs
 
 </div>
