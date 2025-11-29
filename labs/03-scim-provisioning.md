@@ -17,7 +17,7 @@ Zero Trust Identity Layer
 
 ---
 
-🎯 Objective
+# 🎯 **Objective**
 
 In this lab, you will:
 
