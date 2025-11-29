@@ -9,13 +9,10 @@ Zero Trust Identity Layer
  
 ![Identity Banner](../diagrams/identity-banner.png)
 
-</div>
-
----
-
 🔗 **https://SecureTheCloud.dev**  
 📺 **https://www.youtube.com/@SecureTheCloud-dev**
 
+</div>
 
 ---
 
