@@ -13,9 +13,9 @@ Zero Trust Identity Layer
 
 ---
 
-🔗 https://SecureTheCloud.dev
+🔗 **https://SecureTheCloud.dev**  
+📺 **https://www.youtube.com/@SecureTheCloud-dev**
 
-📺 https://www.youtube.com/@SecureTheCloud-dev
 
 ---
 
