@@ -19,50 +19,79 @@ https://www.youtube.com/@SecureTheCloud-dev
 flowchart TD
 
 %% =============================
-%% STC BRAND COLORS
+%% SECURETHECLOUD COLOR SYSTEM
 %% =============================
-classDef stcBlue fill:#1F618D,stroke:#ffffff,color:white;
+classDef blue fill:#1F618D,stroke:#ffffff,color:white,font-weight:bold;
 classDef gold fill:#F4B400,stroke:#ffffff,color:black;
 classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
-classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
 classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
 classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
 
 %% =============================
-%% ROOT SECTION
+%% ROOT NODE
 %% =============================
-A["<a href='../README.md'>Identity Foundations</a>"]:::stcBlue
-
-A --> B["<a href='01-identity-foundations.md#authentication-vs-authorization'>Authn vs Authz</a>"]:::gold
-A --> C["<a href='01-identity-foundations.md#identity-planes'>Identity Planes</a>"]:::teal
-A --> D["<a href='01-identity-foundations.md#identity-lifecycle'>Identity Lifecycle</a>"]:::orange
-A --> E["<a href='01-identity-foundations.md#cloud-identity'>Cloud Identity Models</a>"]:::slate
+A["<a href='../README.md'>Identity Foundations</a>"]:::blue
 
 %% =============================
-%% Authn vs Authz
+%% MAIN IDENTITY SECTIONS
 %% =============================
-B --> B1["Authentication:<br/>Are you who you claim?"]:::gold
-B --> B2["Authorization:<br/>What can you do?"]:::gold
+A --> B1["<a href='01-identity-foundations.md#authentication-vs-authorization'>AuthN vs AuthZ</a>"]:::gold
+A --> B2["<a href='01-identity-foundations.md#identity-planes'>Identity Planes</a>"]:::teal
+A --> B3["<a href='01-identity-foundations.md#identity-lifecycle'>Identity Lifecycle</a>"]:::orange
+A --> B4["<a href='01-identity-foundations.md#cloud-identity-models'>Cloud Identity Models</a>"]:::slate
+A --> B5["<a href='04-federation-theory.md'>Federation Primer</a>"]:::gold
+A --> B6["<a href='05-identity-governance.md'>Zero Trust Identity</a>"]:::blue
+A --> B7["<a href='../labs/01-aws-identity-center.md'>Hands-On Identity Lab</a>"]:::teal
 
 %% =============================
-%% Identity Planes
+%% AUTHN VS AUTHZ
 %% =============================
-C --> C1["Control Plane<br/>(Entra ID)"]:::teal
-C --> C2["Access Plane<br/>(AWS IAM Identity Center)"]:::teal
+B1 --> C1["<a href='https://datatracker.ietf.org/doc/html/rfc6749'>OAuth 2.0 (RFC 6749)</a>"]:::grey
+B1 --> C2["<a href='https://datatracker.ietf.org/doc/html/rfc7519'>JWT (RFC 7519)</a>"]:::grey
+B1 --> C3["<a href='https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_access-management.html'>AWS IAM Access Management</a>"]:::grey
 
 %% =============================
-%% Identity Lifecycle
+%% IDENTITY PLANES
 %% =============================
-D --> D1["Create"]:::orange
-D --> D2["Update"]:::orange
-D --> D3["Deactivate/Delete"]:::orange
+B2 --> D1["<a href='https://learn.microsoft.com/entra'>Entra ID — Identity Plane</a>"]:::teal
+B2 --> D2["<a href='02-aws-identity-center-overview.md'>AWS IAM Identity Center — Access Plane</a>"]:::teal
+B2 --> D3["<a href='../README.md#volume-3-azure-zero-trust'>Volume 3 — Azure Zero Trust (Future)</a>"]:::gold
+B2 --> D4["<a href='../README.md#volume-4-multi-cloud-siem'>Volume 4 — SIEM Integration</a>"]:::gold
 
 %% =============================
-%% Cloud Identity Models
+%% IDENTITY LIFECYCLE
 %% =============================
-E --> E1["Identity Provider (IdP)"]:::slate
-E --> E2["Service Provider (SP)"]:::slate
-E --> E3["Claims + Tokens"]:::slate
+B3 --> E1["<a href='https://datatracker.ietf.org/doc/html/rfc7643'>SCIM Core Schema (RFC 7643)</a>"]:::orange
+B3 --> E2["<a href='/labs/03-scim-provisioning.md'>Lifecycle Automation (SCIM Lab)</a>"]:::orange
+B3 --> E3["<a href='https://learn.microsoft.com/entra/identity/governance'>Access Reviews & Governance</a>"]:::orange
+
+%% =============================
+%% CLOUD IDENTITY MODELS
+%% =============================
+B4 --> F1["<a href='https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html'>AWS IAM Roles</a>"]:::slate
+B4 --> F2["<a href='https://learn.microsoft.com/entra/identity/enterprise-apps'>Azure Enterprise Apps</a>"]:::slate
+B4 --> F3["<a href='https://cloud.google.com/iam/docs/service-accounts'>GCP Service Accounts</a>"]:::slate
+
+%% =============================
+%% FEDERATION
+%% =============================
+B5 --> G1["<a href='04-federation-theory.md#saml'>SAML 2.0</a>"]:::gold
+B5 --> G2["<a href='04-federation-theory.md#oidc'>OIDC</a>"]:::gold
+B5 --> G3["<a href='04-federation-theory.md#scim'>SCIM</a>"]:::gold
+
+%% =============================
+%% ZERO TRUST IDENTITY
+%% =============================
+B6 --> H1["<a href='05-identity-governance.md#conditional-access'>Conditional Access</a>"]:::blue
+B6 --> H2["<a href='05-identity-governance.md#risk-based-access'>Risk-Based Access</a>"]:::blue
+B6 --> H3["<a href='05-identity-governance.md#identity-governance'>Identity Governance</a>"]:::blue
+
+%% =============================
+%% LABS
+%% =============================
+B7 --> I1["<a href='../labs/01-aws-identity-center.md'>Lab 01 — AWS IAM Identity Center</a>"]:::teal
+B7 --> I2["<a href='../labs/02-entra-enterprise-app.md'>Lab 02 — Entra Enterprise App</a>"]:::teal
 ```
 
 # 🌍 Overview  
