@@ -16,40 +16,43 @@ https://www.youtube.com/@SecureTheCloud-dev
 
 ```mermaid
 flowchart TD
+
 %% ======================
 %% ROOT
 %% ======================
-A[<b>AWS IAM Identity Center</b><br/>(Formerly AWS SSO]:::root
+A[AWS IAM Identity Center (Formerly AWS SSO)]:::root
 
 %% ======================
 %% CORE COMPONENTS
 %% ======================
 A --> B1[Identity Source]
-A --> B2[Users & Groups]
+A --> B2[Users and Groups]
 A --> B3[Permission Sets]
 A --> B4[AWS Accounts]
 A --> B5[Applications]
 A --> B6[Authentication Flow]
 
-%% STYLE
-classDef root fill:#1F618D,stroke:#fff,color:white,font-weight:bold;
+%% ======================
+%% STYLE DEFINITIONS
+%% ======================
+classDef root fill:#1F618D,stroke:#ffffff,color:#ffffff,font-weight:bold;
 classDef section fill:#EAF2F8,stroke:#1B4F72,color:#1B2631;
 classDef item fill:#FDFEFE,stroke:#2E4053,color:#2E4053;
 
 %% ======================
 %% IDENTITY SOURCE
 %% ======================
-B1 --> C1[Entra ID<br/>(External IdP)]:::item
+B1 --> C1[Entra ID (External IdP)]:::item
 B1 --> C2[AWS Identity Center Directory]:::item
 B1 --> C3[SCIM Provisioning Setup]:::item
-B1 --> C4[SAML / OIDC Federation]:::item
+B1 --> C4[SAML or OIDC Federation]:::item
 
 %% ======================
 %% USERS & GROUPS
 %% ======================
-B2 --> D1[Synchronized Users<br/>(via SCIM)]:::item
-B2 --> D2[Synchronized Groups<br/>(Security Groups)]:::item
-B2 --> D3[Dynamic Role Mapping]:::item
+B2 --> D1[Provisioned Users via SCIM]:::item
+B2 --> D2[Provisioned Groups]:::item
+B2 --> D3[Group-to-Role Mapping]:::item
 
 %% ======================
 %% PERMISSION SETS
@@ -63,32 +66,30 @@ B3 --> E5[RBAC Role Modeling]:::item
 %% ======================
 %% AWS ACCOUNTS
 %% ======================
-B4 --> F1[OU Mappings]:::item
+B4 --> F1[Organizational Units]:::item
 B4 --> F2[Account Assignments]:::item
 B4 --> F3[Least Privilege Boundaries]:::item
 
 %% ======================
 %% APPLICATIONS
 %% ======================
-B5 --> G1[AWS Console]:::item
-B5 --> G2[AWS CLI v2<br/>SSO Login]:::item
-B5 --> G3[AWS SDK Integration]:::item
-B5 --> G4[SAML Apps]:::item
+B5 --> G1[AWS Console Access]:::item
+B5 --> G2[AWS CLI SSO Login]:::item
+B5 --> G3[AWS SDK SSO Integration]:::item
+B5 --> G4[SAML-Based Applications]:::item
 
 %% ======================
 %% AUTHENTICATION FLOW
 %% ======================
-B6 --> H1[User Requests Access]:::item
-H1 --> H2[Redirect to Entra ID (IdP)]:::item
-H2 --> H3[MFA + Policy Evaluation]:::item
-H3 --> H4[Token Issued (OIDC/SAML)]:::item
-H4 --> H5[Identity Center Maps Roles<br/>→ Permission Sets]:::item
-H5 --> H6[User Receives Console/CLI Access]:::item
-H6 --> H7[Zero Trust Enforcement<br/>Before Access Granted]:::item
+B6 --> H1[User Initiates Access Request]:::item
+H1 --> H2[Redirect to Entra ID]:::item
+H2 --> H3[MFA and Policy Evaluation]:::item
+H3 --> H4[OIDC or SAML Token Issued]:::item
+H4 --> H5[Permission Set Mapping]:::item
+H5 --> H6[Console or CLI Access Granted]:::item
+H6 --> H7[Zero Trust Enforcement]:::item
 
-%% ======================
-%% LEGEND
-%% ======================
+%% APPLY STYLES
 A:::root
 ```
 
