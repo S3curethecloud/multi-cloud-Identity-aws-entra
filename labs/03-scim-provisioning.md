@@ -20,23 +20,23 @@ Zero Trust Identity Layer
 
 In this lab, you will:
 
--Configure SCIM Provisioning from Microsoft Entra ID → AWS IAM Identity Center
+- Configure SCIM Provisioning from Microsoft Entra ID → AWS IAM Identity Center
 
--Enable automatic:
+- Enable automatic:
 
--User creation
+- User creation
 
--Group creation
+- Group creation
 
--User/group membership sync
+- User/group membership sync
 
--Deactivation
+- Deactivation
 
--Validate SCIM connection
+- Validate SCIM connection
 
--Sync Entra security groups into AWS Identity Center
+- Sync Entra security groups into AWS Identity Center
 
-Prepare for Lab 04 — Permission Sets Assignment
+- # Prepare for Lab 04 — Permission Sets Assignment
 
 This is the core identity automation layer of Volume 1.
 
