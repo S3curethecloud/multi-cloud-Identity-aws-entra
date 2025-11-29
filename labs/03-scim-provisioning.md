@@ -11,3 +11,21 @@
 ---
 
 </div>
+
+
+
+
+
+
+
+
+---
+
+<div align="center">
+
+<img src="../diagrams/securethecloud-logo.png" alt="SecureTheCloud Logo" width="90"/>
+
+### **© 2025 SecureTheCloud — All Rights Reserved**
+Zero Trust • Cloud Security • Multi-Cloud Architecture
+
+</div>
