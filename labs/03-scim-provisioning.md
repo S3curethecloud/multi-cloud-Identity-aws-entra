@@ -14,15 +14,14 @@
 
 ```mermaid
 flowchart LR
-    A["<a href='../02-entra-enterprise-app.md'>Entra<br/>Enterprise App</a>"]:::start
-    B["<a href='../01-aws-identity-center.md'>AWS IAM Identity Center<br/>(SP)</a>"]:::core
-    C["<a href='#step-3-enter-the-scim-configuration'>SCIM Endpoint</a>"]:::step
-    D["<a href='#step-3-enter-the-scim-configuration'>SCIM Access Token</a>"]:::step
-    E["<a href='#step-4-validate-scim-sync'>Sync Users</a>"]:::step
-    F["<a href='#step-4-validate-scim-sync'>Sync Groups</a>"]:::step
-    G["<a href='../README.md'>Return to Volume 1</a>"]:::return
+    A[Entra Enterprise App]:::start
+    B[AWS IAM Identity Center]:::core
+    C[SCIM Endpoint]:::step
+    D[SCIM Token]:::step
+    E[Sync Users]:::step
+    F[Sync Groups]:::step
+    G[Return to Volume 1]:::return
 
-    %% FLOW
     A --> C
     A --> D
     C --> E
@@ -31,12 +30,21 @@ flowchart LR
     F --> B
     B --> G
 
-    %% STYLES
     classDef start fill:#1B4F72,stroke:#fff,color:#fff,font-weight:bold
     classDef core fill:#21618C,stroke:#fff,color:white,font-weight:bold
     classDef step fill:#EBF5FB,stroke:#1B4F72,color:#1B2631
     classDef return fill:#F9EBEA,stroke:#922B21,color:#922B21,font-weight:bold
-    ```
+
+    %% CLICKABLE LINKS
+    click A "../labs/02-entra-enterprise-app.md" "Open Lab 02"
+    click B "../labs/01-aws-identity-center.md" "Open Lab 01"
+    click C "#step-3-enter-the-scim-configuration" "Go to SCIM Configuration"
+    click D "#step-3-enter-the-scim-configuration" "Go to SCIM Configuration"
+    click E "#step-4-validate-scim-sync" "Go to Sync Validation"
+    click F "#step-4-validate-scim-sync" "Go to Sync Validation"
+    click G "../README.md" "Return to Volume 1"
+```
+
 📘 Overview
 SCIM (System for Cross-Domain Identity Management) enables:
 
