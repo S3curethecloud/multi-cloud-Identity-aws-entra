@@ -82,6 +82,8 @@ class C1,C2,C3,D1,D2,E1,E2,E3,F1,F2,F3 item;
 ✔ Azure admin access
 ✔ At least one Entra security group created (e.g., AWS-Developers)
 
+---
+
 🚀 Step 1 — Open the Enterprise App in Microsoft Entra
 
 Visit:
