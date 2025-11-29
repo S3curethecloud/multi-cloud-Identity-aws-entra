@@ -57,7 +57,7 @@ This is the core identity automation layer of Volume 1.
 
 ---
 
-#🚀 **Step 1 — Open the Enterprise App in Microsoft Entra**
+# 🚀 **Step 1 — Open the Enterprise App in Microsoft Entra**
 
 1. Visit: https://entra.microsoft.com
 
@@ -71,13 +71,13 @@ You should land on the Enterprise App Overview page.
 
 ---
 
-#🚀 **Step 2 — Open the Provisioning Blade**
+# 🚀 **Step 2 — Open the Provisioning Blade**
 
 1. From the left menu:
 Provisioning → Overview
 
 2. Under Provisioning Mode, select:
-✔ Automatic
+### ✔ Automatic
 
 This tells Entra:
 
@@ -125,15 +125,15 @@ Provisioning runs roughly every 40 minutes.
 
 Entra will automatically sync:
 
-Users
+- **Users**
 
-Groups
+- **Groups**
 
-Group memberships
+- **Group memberships**
 
 ---
 
-🚀 Step 5 — Validate SCIM Synchronization in AWS
+# 🚀 Step 5 — Validate SCIM Synchronization in AWS
 
 In AWS Console:
 IAM Identity Center → Groups
@@ -152,17 +152,17 @@ These should now exist in AWS — with no manual creation required.
 
 ---
 
-🧪 Lab Completion Checklist
+# 🧪 Lab Completion Checklist
 
-✔ SCIM connection established
-✔ Connection test successful
-✔ Entra → AWS SCIM sync enabled
-✔ Groups appear in AWS
-✔ No manual IAM users
-✔ Identity lifecycle now automated
+### ✔ SCIM connection established
+### ✔ Connection test successful
+### ✔ Entra → AWS SCIM sync enabled
+### ✔ Groups appear in AWS
+### ✔ No manual IAM users
+### ✔ Identity lifecycle now automated
 
 ---
-🚀 Next Lab
+# 🚀 Next Lab
 
 ➡️ Lab 04 — Permission Sets Assignment
 04-permission-sets.md
@@ -175,23 +175,16 @@ These should now exist in AWS — with no manual creation required.
 📘 Chapter 06 — Permission Sets & RBAC
 ../theory/06-permission-sets-rbac.md
 ---
-🔙 Back to Volume 1 README
+# 🔙 Back to Volume 1 README
 
 https://github.com/S3curethecloud/multi-cloud-identity-aws-entra
 ---
+
+# 🧭 SecureTheCloud Footer
+
 <div align="center">
 
-© 2025 SecureTheCloud.dev — All Rights Reserved
-Zero Trust • Multi-Cloud • Enterprise Architecture
-
-Terms
- •
-Privacy
- •
-Status
- •
-Community
-
 </div>
+
 
 
