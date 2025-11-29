@@ -2,98 +2,76 @@
 ### *SecureTheCloud Identity Academy — Volume 1*
 
 ```mermaid
-graph TD
-    A[Enterprise RBAC Framework] --> B[Core Components]
-    A --> C[Permission Architecture]
-    A --> D[Role Management]
-    A --> E[Access Control Flow]
-    
-    B --> B1[Users]
-    B --> B2[Roles]
-    B --> B3[Permissions]
-    B --> B4[Resources]
-    B --> B5[Sessions]
-    
-    C --> C1[Permission Sets]
-    C1 --> C1_1[Collection of Granular Permissions]
-    C1 --> C1_2[Modular & Reusable]
-    C1 --> C1_3[Environment Specific]
-    
-    C --> C2[Permission Types]
-    C2 --> C2_1[Read/Write/Execute]
-    C2 --> C2_2[Create/Update/Delete]
-    C2 --> C2_3[Admin/Manager/Viewer]
-    C2 --> C2_4[Custom Permissions]
-    
-    C --> C3[Scope & Context]
-    C3 --> C3_1[Global Permissions]
-    C3 --> C3_2[Department Scope]
-    C3 --> C3_3[Project Level]
-    C3 --> C3_4[Time-bound Access]
-    
-    D --> D1[Role Hierarchy]
-    D1 --> D1_1[Senior Management]
-    D1 --> D1_2[Department Heads]
-    D1 --> D1_3[Team Leads]
-    D1 --> D1_4[Individual Contributors]
-    
-    D --> D2[Role Types]
-    D2 --> D2_1[Static Roles]
-    D2 --> D2_2[Dynamic Roles]
-    D2 --> D2_3[Job-function Roles]
-    D2 --> D2_4[Composite Roles]
-    
-    D --> D3[Role Assignment]
-    D3 --> D3_1[Direct Assignment]
-    D3 --> D3_2[Inheritance]
-    D3 --> D3_3[Group-based]
-    D3 --> D3_4[Rule-based]
-    
-    E --> E1[Access Request]
-    E1 --> E1_1[User Attempts Action]
-    E1 --> E1_2[System Checks Permissions]
-    E1 --> E1_3[Evaluate Role Membership]
-    
-    E --> E2[Authorization Decision]
-    E2 --> E2_1[Permission Set Validation]
-    E2 --> E2_2[Context Evaluation]
-    E2 --> E2_3[Access Granted/Denied]
-    
-    E --> E3[Audit & Compliance]
-    E3 --> E3_1[Access Logging]
-    E3 --> E3_2[Policy Enforcement]
-    E3 --> E3_3[Regular Reviews]
-    
-    %% Relationships and Dependencies
-    B2 -.-> C1
-    C1 -.-> C2
-    D1 -.-> D3
-    D2 -.-> C1
-    E1 -.-> E2
-    E2 -.-> E3
-    
-    %% Permission Set Examples
-    C1 --> F[Example Permission Sets]
-    F --> F1[Admin Full Access]
-    F --> F2[Finance Read-Only]
-    F --> F3[HR Manager]
-    F --> F4[Developer Sandbox]
-    F --> F5[External Partner]
-    
-    %% Styling
-    classDef framework fill:#2E86AB,color:white
-    classDef components fill:#A23B72,color:white
-    classDef permissions fill:#F18F01,color:black
-    classDef roles fill:#C73E1D,color:white
-    classDef workflow fill:#3BB273,color:white
-    classDef examples fill:#6D6875,color:white
-    
-    class A framework
-    class B,B1,B2,B3,B4,B5 components
-    class C,C1,C1_1,C1_2,C1_3,C2,C2_1,C2_2,C2_3,C2_4,C3,C3_1,C3_2,C3_3,C3_4 permissions
-    class D,D1,D1_1,D1_2,D1_3,D1_4,D2,D2_1,D2_2,D2_3,D2_4,D3,D3_1,D3_2,D3_3,D3_4 roles
-    class E,E1,E1_1,E1_2,E1_3,E2,E2_1,E2_2,E2_3,E3,E3_1,E3_2,E3_3 workflow
-    class F,F1,F2,F3,F4,F5 examples
+flowchart TD
+
+%% =============================
+%% SECURETHECLOUD COLOR SYSTEM
+%% =============================
+classDef blue fill:#1F618D,stroke:#ffffff,color:white,font-weight:bold;
+classDef gold fill:#F4B400,stroke:#ffffff,color:black;
+classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
+classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
+classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
+
+%% =============================
+%% ROOT NODE
+%% =============================
+A["<a href='../theory/06-permission-sets-rbac.md'>Permission Sets<br/>& Enterprise RBAC</a>"]:::blue
+
+%% =============================
+%% MAIN SECTIONS
+%% =============================
+A --> B1["<a href='../theory/06-permission-sets-rbac.md#what-are-permission-sets'>What Are Permission Sets?</a>"]:::gold
+A --> B2["<a href='../theory/06-permission-sets-rbac.md#mapping-entra-to-aws'>Mapping Entra → AWS</a>"]:::teal
+A --> B3["<a href='../theory/06-permission-sets-rbac.md#enterprise-rbac'>Enterprise RBAC Model</a>"]:::orange
+A --> B4["<a href='../theory/06-permission-sets-rbac.md#iam-role-creation'>IAM Role Creation</a>"]:::slate
+A --> B5["<a href='../theory/06-permission-sets-rbac.md#least-privilege'>Least Privilege</a>"]:::grey
+A --> B6["<a href='../labs/01-aws-identity-center.md'>Lab — Permission Sets Assignment</a>"]:::teal
+
+%% =============================
+%% PERMISSION SETS (DEEP CLICKABLE)
+%% =============================
+B1 --> C1["<a href='../theory/06-permission-sets-rbac.md#aws-managed-policies'>AWS Managed Policies</a>"]:::gold
+B1 --> C2["<a href='../theory/06-permission-sets-rbac.md#customer-managed-policies'>Customer Managed</a>"]:::gold
+B1 --> C3["<a href='../theory/06-permission-sets-rbac.md#session-settings'>Session Duration</a>"]:::gold
+B1 --> C4["<a href='../theory/06-permission-sets-rbac.md#inline-permissions'>Inline Permissions</a>"]:::gold
+
+%% =============================
+%% MAPPING ENTRA TO AWS
+%% =============================
+B2 --> D1["<a href='../labs/03-scim-provisioning.md#user-sync'>SCIM User Sync</a>"]:::teal
+B2 --> D2["<a href='../labs/03-scim-provisioning.md#group-sync'>SCIM Group Sync</a>"]:::teal
+B2 --> D3["<a href='../theory/04-federation-theory.md#token-issuance'>Token Issuance</a>"]:::teal
+B2 --> D4["<a href='../theory/04-federation-theory.md#saml'>SAML Assertion Mapping</a>"]:::teal
+
+%% =============================
+%% ENTERPRISE RBAC MODEL
+%% =============================
+B3 --> E1["<a href='../theory/06-permission-sets-rbac.md#rbac-hierarchy'>RBAC Hierarchy</a>"]:::orange
+B3 --> E2["<a href='../theory/06-permission-sets-rbac.md#team-based-rbac'>Team-Based Roles</a>"]:::orange
+B3 --> E3["<a href='../theory/06-permission-sets-rbac.md#department-based-rbac'>Department Roles</a>"]:::orange
+B3 --> E4["<a href='../theory/06-permission-sets-rbac.md#privileged-rbac'>Privileged Roles (PIM)</a>"]:::orange
+
+%% =============================
+%% IAM ROLE CREATION
+%% =============================
+B4 --> F1["<a href='../theory/06-permission-sets-rbac.md#role-creation'>Role Mapping</a>"]:::slate
+B4 --> F2["<a href='../theory/06-permission-sets-rbac.md#iam-role-flow'>IAM Role Flow</a>"]:::slate
+B4 --> F3["<a href='../theory/06-permission-sets-rbac.md#trust-policies'>Trust Policies</a>"]:::slate
+
+%% =============================
+%% LEAST PRIVILEGE
+%% =============================
+B5 --> G1["<a href='../theory/05-identity-governance.md#verify-explicitly'>Verify Explicitly</a>"]:::grey
+B5 --> G2["<a href='../theory/05-identity-governance.md#least-privilege'>Least Privilege Enforcement</a>"]:::grey
+B5 --> G3["<a href='../theory/05-identity-governance.md#assume-breach'>Assume Breach</a>"]:::grey
+
+%% =============================
+%% LABS
+%% =============================
+B6 --> H1["<a href='../labs/01-aws-identity-center.md#permission-sets'>Lab Section: Permission Sets</a>"]:::teal
+B6 --> H2["<a href='../labs/03-scim-provisioning.md'>Lab Section: Group Mapping</a>"]:::teal
 ```
 
 ---
