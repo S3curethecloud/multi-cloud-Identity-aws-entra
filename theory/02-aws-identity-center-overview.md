@@ -16,7 +16,6 @@ https://www.youtube.com/@SecureTheCloud-dev
 
 ```mermaid
 flowchart TD
-
 %% ======================
 %% ROOT
 %% ======================
