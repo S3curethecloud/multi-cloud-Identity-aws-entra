@@ -1,6 +1,5 @@
 🛡️ SecureTheCloud Identity Academy — Volume 1
 Lab 03 — SCIM Provisioning (Microsoft Entra → AWS IAM Identity Center)
-
 <div align="center">
 
 ![Identity Banner](../diagrams/identity-banner.png)
