@@ -3,7 +3,8 @@
 <img src="../diagrams/securethecloud-banner.png" alt="SecureTheCloud Banner" width="100%"/>
 
 # **SecureTheCloud Identity Academy — Volume 1**
-### **AWS IAM Identity Center ↔ Microsoft Entra ID — SCIM User & Group Provisioning**
+### **AWS IAM Identity Center ↔ Microsoft Entra Federation
+Permission Set Assignment + Enterprise RBAC**
 
 🔗 https://SecureTheCloud.dev  
 📺 https://www.youtube.com/@SecureTheCloud-dev  
@@ -12,256 +13,284 @@
 
 </div>
 
-🧭 Lab Objective
+🎯 Lab Objective
 
-In this lab, you will configure:
+In this lab, you will:
 
-✔ SCIM Provisioning in Microsoft Entra
-✔ Automatic User + Group Sync to AWS
-✔ Mapping Entra Security Groups → AWS Permission Assignments
-✔ Validating user propagation
-✔ Testing identity lifecycle (Create, Update, Deactivate action)
+✔ Assign AWS Permission Sets to Entra Groups
+✔ Enforce least privilege at scale
+✔ Bind identity → group → permission → AWS account
+✔ Validate role assumption via Identity Center
+✔ Implement Zero Trust identity → authorization flows
+✔ Map team roles (Dev/Ops/Security)
 
-This enables AWS IAM Identity Center to receive:
+This is where authorization happens in SecureTheCloud.
 
-Users (identity objects)
+SCIM = sync identities
+SAML/OIDC = authenticate identities
+Permission Sets = authorize identities
 
-Groups (role containers)
+This lab turns your Entra groups into real AWS roles.
 
-Memberships (authorization relationship)
+🧩 Fully Clickable Permission Sets Diagram
 
-Lifecycle Actions (create/update/delete)
-
-This is critical for Zero Trust because:
-
-Identity must flow from IdP → SP consistently and automatically.
-No manual IAM users. No drift. No shadow identities.
-
-🧩 Clickable SCIM Provisioning Diagram
-
-Every box below is clickable and links to the correct folder or lab.
+Everything below is clickable and maps to labs or theory pages.
 
 ```mermaid
 flowchart TD
+
 %% ROOT
-A["<a href='../theory/04-federation-theory.md'><b>Federation & Provisioning Layer</b></a>"] --> B["<a href='../labs/03-scim-provisioning.md'><b>SCIM Provisioning</b><br/>Entra → AWS</a>"]
+A["<a href='../theory/06-permission-sets-rbac.md'><b>Permission Sets & RBAC</b><br/>(Theory)</a>"] --> B["<a href='../labs/04-permission-sets.md'><b>Lab 04<br/>Assign Permission Sets</b></a>"]
 
-%% ENTRA SETUP
-B --> C1["<a href='https://entra.microsoft.com'>Create Enterprise App</a>"]
-B --> C2["Enable Provisioning Module<br/>(Entra)"]
-B --> C3["Assign Security Groups<br/>(Source of truth)"]
+%% GROUP → PERMISSION SET
+B --> C1["<a href='../labs/03-scim-provisioning.md'>Entra Security Group<br/>(via SCIM)</a>"]:::step
+C1 --> C2["<b>Permission Set<br/>Definition</b>"]:::item
 
-%% SCIM CONFIG VALUES
-B --> D1["<a href='../labs/01-aws-identity-center.md'>AWS SCIM Endpoint URL</a>"]
-B --> D2["<a href='../labs/01-aws-identity-center.md'>SCIM Access Token</a>"]
+%% PERMISSION SET DETAILS
+C2 --> P1["AWS Managed Policies"]:::item
+C2 --> P2["Custom JSON Policies"]:::item
+C2 --> P3["Session Duration"]:::item
+C2 --> P4["Inline Constraints"]:::item
+C2 --> P5["Least Privilege Modeling"]:::item
 
-%% AWS RECEIVES OBJECTS
-B --> E1["Users<br/>(Provisioned in AWS)"]
-B --> E2["Groups<br/>(Provisioned in AWS)"]
-B --> E3["Group Memberships<br/>(Role mapping)"]
+%% ACCOUNT ASSIGNMENT
+B --> D1["<b>AWS Account Assignment</b>"]:::step
+D1 --> D2["OU-Level Assignment"]:::item
+D1 --> D3["Single Account"]:::item
+D1 --> D4["Project-Based Accounts"]:::item
 
-%% IDENTITY LIFECYCLE
-B --> F1["Create<br/>User"] 
-B --> F2["Update<br/>Attributes"] 
-B --> F3["Deactivate<br/>Access"]
+%% LOGIN
+B --> E1["<a href='../labs/01-aws-identity-center.md'>User Login via SSO</a>"]:::step
+E1 --> E2["AWS Console / CLI Access"]:::item
+E2 --> E3["Zero Trust Enforcement"]:::item
 
-%% STYLE
-classDef root fill:#1F618D,stroke:#fff,color:white,font-weight:bold;
-classDef step fill:#E8F6F3,stroke:#117864,color:#0B5345;
+classDef step fill:#E8F6F3,stroke:#117864,color:#0B5345,font-weight:bold;
 classDef item fill:#FEF9E7,stroke:#B7950B,color:#7D6608;
-class A root;
-class B step;
-class C1,C2,C3,D1,D2,E1,E2,E3,F1,F2,F3 item;
 ```
 
 🧰 Prerequisites
-```plaintext
-✔ Lab 01 — AWS IAM Identity Center (SSO)
-✔ Lab 02 — Create Enterprise App (SAML Federation)
-✔ SCIM URL + Access Token from AWS Identity Center
-✔ Azure admin access
-✔ At least one Entra security group created (e.g., AWS-Developers)
 
+✔ Lab 01 — AWS IAM Identity Center
+✔ Lab 02 — Entra Enterprise App (SAML)
+✔ Lab 03 — SCIM Provisioning
+✔ Groups synced successfully
+✔ At least one AWS account enrolled in AWS Organizations
 
-🚀 Step 1 — Open the Enterprise App in Microsoft Entra
+🚀 Step 1 — View Synced Groups From Entra
 
-Visit:
-https://entra.microsoft.com
+Navigate to AWS Console:
 
-Navigate to:
-Identity → Applications → Enterprise Applications
-
-Select the app you created in Lab 02:
-AWS IAM Identity Center — SecureTheCloud
-
-You should now be on the Overview page.
-
-🚀 Step 2 — Open the Provisioning Blade
-
-In the left menu, click:
-Provisioning
-
-Under Provisioning Mode, select:
-
-Automatic
-
-
-This tells Entra:
-➡ "I will sync objects into AWS automatically using SCIM."
-
-🚀 Step 3 — Enter the SCIM Configuration
-
-From AWS IAM Identity Center → Settings → Identity Source, copy:
-
-SCIM Endpoint
-
-SCIM Access Token
-
-Paste into Entra:
-
-Setting	Value
-Tenant URL	SCIM Endpoint
-Secret Token	SCIM Access Token
-
-Click Test Connection
-
-💡 Expected result:
-
-Connection succeeded.
-
-
-If it fails:
-
-Token expired → regenerate in AWS
-
-Wrong region → ensure us-east-1 (or your chosen region)
-
-Wrong endpoint → ensure it ends in /scim/v2
-
-🚀 Step 4 — Configure Attribute Mappings
-
-Scroll to Mappings
-
-Configure:
-
-User Mapping
-Entra Attribute	AWS SCIM Equivalent
-displayName	name
-mail	userName
-givenName	givenName
-surname	familyName
-objectId	externalId
-accountEnabled	active
-Group Mapping
-Entra Attribute	AWS Equivalent
-displayName	displayName
-objectId	externalId
-members	members
-
-Click Save.
-
-🚀 Step 5 — Assign Security Groups (Source of Truth)
-
-Navigate to:
-
-Enterprise App → Users and Groups
-
-Click:
-
-+ Add user/group
-
-
-Add:
-
-Your test admin group
-
-A production group (e.g., AWS-Developers)
-
-Your own test user
-
-This defines:
-
-“Which identities should be synced to AWS?”
-
-🚀 Step 6 — Start Provisioning Job
-
-Go back to:
-
-Provisioning → Overview
-
-Click:
-
-Start provisioning
-
-
-The first sync takes 5–15 minutes.
-
-You can monitor progress in:
-
-Provisioning Logs
-
-🚀 Step 7 — Validate Sync in AWS IAM Identity Center
-
-Go to:
-
-AWS Console → IAM Identity Center → Users
+IAM Identity Center → Groups
 
 You should see:
 
-✔ Users from Entra synced
-✔ Groups synced
-✔ Membership mapped
+AWS-Developers
 
-If not:
+AWS-Admins
 
-Fix checklist:
+AWS-ReadOnly
 
-Entra admin consent missing
+Any custom security groups you created
 
-Missing attribute mappings
+These groups arrived via SCIM in Lab 03.
 
-Group missing members
+🚀 Step 2 — Create a Permission Set
 
-Token expired
+Navigate:
 
-SCIM service disabled
+IAM Identity Center → Permission Sets → Create Permission Set
 
-🧪 Step 8 — Test Identity Lifecycle
-1️⃣ Create
+Choose a method:
 
-Create a new user in Entra → sync to AWS
+Option A — AWS Managed Policies
 
-2️⃣ Update
+Great for:
 
-Change user’s displayName → should update in AWS
+Developers
 
-3️⃣ Deactivate
+Viewers
 
-Disable user in Entra → AWS should set active=false
+Admins
 
-4️⃣ Remove group membership
+Billing teams
 
-User loses role → AWS removes assignments
+Examples:
 
-This confirms your federation + provisioning workflow is healthy.
+ReadOnlyAccess
+
+PowerUserAccess
+
+AdministratorAccess
+
+Option B — Custom Permissions (recommended)
+
+Click:
+
+Create a custom permission set
+
+
+Define:
+
+Setting	Recommendation
+Name	stc-dev-ps, stc-admin-ps
+Session Duration	1 hour (Zero Trust)
+Relay State	Default
+Permissions	custom JSON policy
+
+Example least-privilege dev JSON:
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Effect": "Allow", "Action": ["ec2:Describe*"], "Resource": "*" },
+    { "Effect": "Allow", "Action": ["logs:Describe*","logs:Get*","logs:List*"], "Resource": "*" }
+  ]
+}
+
+🚀 Step 3 — Assign Permission Set to Group
+
+Navigate:
+
+IAM Identity Center → AWS Account Assignments
+
+Click:
+
+Assign users or groups
+
+
+Choose:
+
+Group: AWS-Developers
+
+Accounts: (Select one or multiple)
+
+Permission Set: stc-dev-ps
+
+Click Submit.
+
+This creates:
+
+A role for the permission set
+
+A trust relationship
+
+Group-based authorization mapping
+
+🚀 Step 4 — Validate Role Creation in AWS Account
+
+Open AWS Console:
+
+IAM → Roles
+
+You should see roles such as:
+
+AWSReservedSSO_stc-dev-ps_xxxxx
+
+AWSReservedSSO_stc-admin-ps_xxxxx
+
+AWSReservedSSO_ReadOnlyAccess_xxxxx
+
+These are managed automatically by AWS IAM Identity Center.
+
+Do NOT modify trust policies manually.
+
+🚀 Step 5 — Test Login Using SSO
+
+Visit your Identity Center URL:
+
+https://<your-domain>.awsapps.com/start
+
+
+Login using Entra credentials (Lab 02 SAML flow).
+
+Expected:
+
+All roles bound to your groups appear
+
+You can assume roles
+
+Your permissions match the Permission Set
+
+Session lasts exactly as configured
+
+🚀 Step 6 — Validate Least Privilege
+
+Perform tests:
+
+Developer role
+
+Can view EC2
+
+Cannot delete EC2
+
+Can retrieve logs
+
+Cannot modify IAM
+
+ReadOnly role
+
+Should not be able to modify anything
+
+Can view resources across AWS
+
+Admin role
+
+Full permissions
+
+MFA enforcement via Entra & Conditional Access
+
+🚦 Step 7 — RBAC Scaling Patterns (SecureTheCloud Best Practices)
+
+Use these patterns for real enterprise:
+
+1️⃣ Functional
+
+AWS-Dev
+
+AWS-Ops
+
+AWS-Security
+
+2️⃣ Environment
+
+AWS-DevOps-Sandbox
+
+AWS-Prod-Operations
+
+AWS-Stage-Developers
+
+3️⃣ Project-Based
+
+AWS-ProjectA-Developers
+
+AWS-ProjectB-DataScience
+
+4️⃣ Break-Glass
+
+AWS-Emergency-Admin
+⚠️ Requires MFA + short session + alerts
 
 📦 Lab Completion Checklist
 
-✔ SCIM connection tested
-✔ User mapping correct
-✔ Group mapping correct
-✔ Provisioning logs successful
-✔ Users appear in AWS IAM Identity Center
-✔ Groups appear in AWS
-✔ Lifecycle events propagate
+✔ Permission Sets created
+✔ Groups mapped to accounts
+✔ Roles created inside AWS accounts
+✔ SSO login validated
+✔ Least privilege behavior validated
+✔ Zero Trust policy enforcement observed
 
-⏭️ Next Lab
+⏭️ Next Steps
 
-➡ Lab 04 — Permission Set Assignment (RBAC at Scale)
-👉 04-permission-sets.md
+Continue to:
 
-Return to Theory:
-➡ ../theory/06-permission-sets-rbac.md
+➡ Chapter 06 — Permission Sets & RBAC Theory
+👉 ../theory/06-permission-sets-rbac.md
+
+Return to all theory:
+👉 ../theory/01-identity-foundations.md
+
+Return to Volume README:
+👉 ../README.md
 
 <div align="center">
 
