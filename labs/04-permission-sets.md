@@ -1,68 +1,63 @@
-# 🧩 SecureTheCloud Academy — Volume 1  
-## **Lab 04 — Permission Sets & Enterprise RBAC**  
-### **AWS IAM Identity Center ↔ Microsoft Entra Federation**
+🧩 SecureTheCloud Academy — Volume 1
+Lab 04 — Permission Sets & Enterprise RBAC
+AWS IAM Identity Center ↔ Microsoft Entra Federation
+<div align="center"> <img src="../diagrams/securethecloud-banner.png" alt="SecureTheCloud Banner" width="100%"/>
 
----
+🔗 https://SecureTheCloud.dev
 
-<div align="center">
-
-<img src="../diagrams/securethecloud-banner.png" width="100%" />
-
-<br/>
-
-🔗 **https://SecureTheCloud.dev**  
-📺 **https://www.youtube.com/@SecureTheCloud-dev**
+📺 https://www.youtube.com/@SecureTheCloud-dev
 
 </div>
+🎯 Lab Objective
 
----
+In this lab, you will configure authorization for your federated environment by mapping:
 
-# 🎯 **Objective**
+✔ Entra Security Groups →
 
-In this lab, you will configure **authorization** for your federated identity platform by mapping:
+✔ AWS Permission Sets →
 
-- ✔ Entra **Security Groups**  
-- ✔ AWS **Permission Sets**  
-- ✔ AWS **Accounts / OUs**
+✔ AWS Accounts (OU-level or individual)
 
-This is where **enterprise-grade RBAC** becomes real.
----
+This is where real enterprise RBAC becomes operational.
 
-### **Identity Flow Summary**
+Identity Flow Summary
 
-| Component | Purpose |
-|----------|---------|
-| **SCIM** | Syncs users/groups from Entra |
-| **SAML/OIDC** | Authenticates identities |
-| **Permission Sets** | Authorizes access |
-| **AWS Roles** | Enforce permissions inside accounts |
+Component	Purpose
+SCIM	Syncs users & groups
+SAML/OIDC	Authenticates identity
+Permission Sets	Authorizes access
+AWS Roles	Enforce permissions in accounts
 
-This lab **turns Entra groups into real AWS roles**.
+This lab turns Entra groups into real AWS roles.
 
----
+🧩 Fully Clickable RBAC Diagram
 
-# 🧩 Fully Clickable RBAC Diagram
+All items below are clickable and route to theory or labs.
 
 ```mermaid
 flowchart TD
 
-A["<a href='../theory/06-permission-sets-rbac.md'><b>Permission Sets & RBAC</b><br/>(Theory)</a>"]
-  --> B["<a href='../labs/04-permission-sets.md'><b>Lab 04<br/>Assign Permission Sets</b></a>"]
+%% ROOT
+A["<a href='../theory/06-permission-sets-rbac.md'><b>Permission Sets & RBAC</b><br/>(Theory)</a>"] --> B["<a href='../labs/04-permission-sets.md'><b>Lab 04<br/>Assign Permission Sets</b></a>"]
 
+%% GROUP → PERMISSION SET
 B --> C1["<a href='../labs/03-scim-provisioning.md'><b>Entra Security Group<br/>(via SCIM)</b></a>"]:::step
 C1 --> C2["<b>Permission Set<br/>Definition</b>"]:::item
 
+%% PERMISSION SET DETAILS
 C2 --> P1["<b>AWS Managed Policies</b>"]:::item
 C2 --> P2["<b>Custom JSON Policies</b>"]:::item
 C2 --> P3["<b>Session Duration</b>"]:::item
 C2 --> P4["<b>Inline Constraints</b>"]:::item
 C2 --> P5["<b>Least Privilege Modeling</b>"]:::item
 
+%% ACCOUNT ASSIGNMENT
 B --> D1["<b>AWS Account Assignment</b>"]:::step
 D1 --> D2["<b>OU-Level Assignment</b>"]:::item
 D1 --> D3["<b>Single Account</b>"]:::item
-D1 --> D4["<b>Project Accounts</b>"]:::item
+D1 --> D4["<b>Project-Based Accounts</b>"]:::item
 
+%% LOGIN
 B --> E1["<a href='../labs/01-aws-identity-center.md'><b>User Login via SSO</b></a>"]:::step
 E1 --> E2["<b>AWS Console / CLI Access</b>"]:::item
 E2 --> E3["<b>Zero Trust Enforcement</b>"]:::item
@@ -70,74 +65,84 @@ E2 --> E3["<b>Zero Trust Enforcement</b>"]:::item
 classDef step fill:#E8F6F3,stroke:#117864,color:#0B5345,font-weight:bold;
 classDef item fill:#FEF9E7,stroke:#B7950B,color:#7D6608;
 ```
----
-# 🧰 **Prerequisites**
 
-### ✔ Lab 01 — IAM Identity Center
+🧰 Prerequisites
 
-### ✔ Lab 02 — Entra Enterprise App (SAML)
+Before starting this lab, ensure:
 
-### ✔ Lab 03 — SCIM Provisioning
+✔ Lab 01 — AWS IAM Identity Center configured
 
-### ✔ Groups synced successfully
+✔ Lab 02 — Entra Enterprise App (SAML) completed
 
-### ✔ One or more AWS accounts in Organizations
+✔ Lab 03 — SCIM Provisioning working
 
-# 🚀 **Step 1 — View Synced Groups**
+✔ Entra groups synced successfully
+
+✔ AWS Organizations connected with at least one account
+
+🚀 Step 1 — View Synced Groups in AWS
 
 Navigate:
 
 IAM Identity Center → Groups
 
 
-You should see:
+You should now see groups synced from Entra:
 
-- AWS-Developers
+AWS-Developers
 
-- AWS-Admins
+AWS-Admins
 
-- AWS-ReadOnly
+AWS-ReadOnly
 
-- Any custom groups
+Any additional custom groups
 
-These were synced in Lab 03 — SCIM Provisioning.
+These arrived through SCIM from Lab 03.
 
-# 🚀 **Step 2 — Create a Permission Set**
+🚀 Step 2 — Create a Permission Set
 
 Navigate:
 
-- IAM Identity Center → Permission Sets → Create Permission Set
+IAM Identity Center → Permission Sets → Create Permission Set
 
 
-Choose one:
+You now choose between:
 
-# ⭐ *Option A — AWS Managed Policies*
+⭐ Option A — AWS Managed Policies
+
+Use this for:
+
+Developers
+
+Viewers
+
+Admins
+
+Billing teams
 
 Examples:
 
-- ReadOnlyAccess
+ReadOnlyAccess
 
-- PowerUserAccess
+PowerUserAccess
 
 AdministratorAccess
 
-# ⭐ *Option B — Custom Permission Set (recommended)*
+⭐ Option B — Custom Permission Sets (Recommended)
 
 Click:
 
-> Create a custom permission set
+Create a custom permission set
 
 
-# Recommended:
+Recommended configuration:
 
-Setting	Value
-- Name	stc-dev-ps, stc-admin-ps
-- Session Duration	1 hour
-- Relay State	Default
-- Permissions	Custom JSON
-
+Setting	Recommendation
+Name	stc-dev-ps, stc-admin-ps
+Session Duration	1 hour (Zero Trust)
+Relay State	Default
+Permissions	Custom JSON policy
 Example Least Privilege Dev Policy
-
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -146,7 +151,7 @@ Example Least Privilege Dev Policy
   ]
 }
 
-# 🚀 **Step 3 — Assign Permission Set to Group**
+🚀 Step 3 — Assign Permission Set to Entra Group
 
 Navigate:
 
@@ -158,62 +163,67 @@ Click:
 Assign users or groups
 
 
-Select:
+Choose:
 
 Group: AWS-Developers
 
-Accounts: one or many
+Accounts: Select one or many
 
 Permission Set: stc-dev-ps
 
 Click Submit.
 
-AWS automatically creates:
+This action creates:
 
-The IAM Role
+An AWS role matching the permission set
 
-Trust policy
+A trust policy
 
-Permission boundaries
+A full group → permission → account binding
 
-# 🚀 **Step 4 — Validate AWS Role Creation**
+🚀 Step 4 — Validate Role Creation in AWS
 
 Navigate:
 
 IAM → Roles
 
 
-You should see:
+You should now see roles like:
 
 AWSReservedSSO_stc-dev-ps_xxxxx
 
 AWSReservedSSO_stc-admin-ps_xxxxx
 
-⚠ Do NOT edit trust policies — IAM Identity Center manages them.
+AWSReservedSSO_ReadOnlyAccess_xxxxx
 
-🚀 Step 5 — Test Login via SSO
+⚠️ Never modify trust policies manually.
+They are fully managed by IAM Identity Center.
 
-Visit:
+🚀 Step 5 — Test User Login via SSO
+
+Visit your SSO portal:
 
 https://<your-domain>.awsapps.com/start
 
 
-Login using Entra ID.
+Sign in using Entra credentials (from Lab 02).
 
-Expected:
+Expected results:
 
-Your assigned roles appear
+Assigned roles visible
 
-You can assume multiple roles
+You can assume roles
 
-Session duration matches your Permission Set
+Permissions match permission sets
+
+Session enforces your configured duration
 
 🚀 Step 6 — Validate Least Privilege
 Developer Role
 
 ✔ Can view EC2
 
-✔ Can read logs
+✔ Can view logs
 
 ✖ Cannot delete EC2
 
@@ -221,15 +231,20 @@ Developer Role
 
 ReadOnly Role
 
-✔ View-only across AWS
+✔ View-only across services
+
+✖ Cannot modify resources
 
 Admin Role
 
-✔ Full administrator access
+✔ Full access
 
-🔐 Conditional Access enforcement
+🔐 MFA enforced via Entra Conditional Access
 
-🚦 Step 7 — Enterprise RBAC Patterns (Best Practice)
+🚦 Step 7 — Enterprise RBAC Patterns (SecureTheCloud Standard)
+
+Choose the best scaling model for enterprise:
+
 1️⃣ Functional RBAC
 
 AWS-Dev
@@ -240,48 +255,44 @@ AWS-Security
 
 2️⃣ Environment-Based RBAC
 
+AWS-DevOps-Sandbox
+
 AWS-Prod-Operations
 
 AWS-Stage-Developers
 
-AWS-DevOps-Sandbox
-
-3️⃣ Project RBAC
+3️⃣ Project-Based RBAC
 
 AWS-ProjectA-Developers
 
 AWS-ProjectB-DataScience
 
-4️⃣ Break-Glass
+4️⃣ Break-Glass Admin
 
 AWS-Emergency-Admin
+⚠️ Requires MFA + short sessions + alerts
 
 📦 Lab Completion Checklist
+Task	Status
+Permission Sets created	✔
+Groups mapped to accounts	✔
+Roles created	✔
+SSO login validated	✔
+Least privilege enforced	✔
+Zero Trust identity behavior verified	✔
+⏭️ Next Steps
 
-✔ Permission Sets created
+➡ Chapter 06 — Permission Sets & RBAC Theory
+📄 ../theory/06-permission-sets-rbac.md
 
-✔ Group assignment completed
-
-✔ Roles auto-created
-
-✔ SSO login validated
-
-✔ Least privilege enforced
-
-✔ Zero Trust identity posture verified
-
-⏭ Next Steps
-
-➡ Permission Sets & RBAC Theory
-../theory/06-permission-sets-rbac.md
-
-⬅ Back to Identity Foundations
-../theory/01-identity-foundations.md
+⬅ Back to all theory:
+📄 ../theory/01-identity-foundations.md
 
 ⬅ Back to Volume README
-../README.md
+📄 ../README.md
 
-<div align="center"> <img src="../diagrams/securethecloud-logo.png" width="160px"/>
+🧭 SecureTheCloud Footer
+<div align="center"> <img src="../diagrams/securethecloud-logo.png" alt="securethecloud logo" width="160px"/>
 
 © 2025 SecureTheCloud.dev — All Rights Reserved
 Zero Trust • Multi-Cloud • Enterprise Architecture
@@ -296,4 +307,4 @@ Community
  •
 Docs
 
-</div> ```
+</div>
