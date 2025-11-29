@@ -17,80 +17,80 @@ https://www.youtube.com/@SecureTheCloud-dev
 ```mermaid
 flowchart TD
 
-%% ======================
-%% ROOT
-%% ======================
-A["<a href='../README.md'>AWS IAM Identity Center<br/>(Formerly AWS SSO)</a>"]:::root
+%% =============================
+%% SECURETHECLOUD COLOR SYSTEM
+%% =============================
+classDef blue fill:#1F618D,stroke:#ffffff,color:white,font-weight:bold;
+classDef gold fill:#F4B400,stroke:#ffffff,color:black;
+classDef teal fill:#1ABC9C,stroke:#ffffff,color:black;
+classDef grey fill:#BDC3C7,stroke:#2C3E50,color:black;
+classDef orange fill:#E67E22,stroke:#ffffff,color:white;
+classDef slate fill:#2C3E50,stroke:#ffffff,color:white;
 
-%% ======================
-%% CORE COMPONENTS
-%% ======================
-A --> B1["<a href='04-federation-theory.md'>Identity Source</a>"]
-A --> B2["<a href='04-federation-theory.md#users-and-groups'>Users and Groups</a>"]
-A --> B3["<a href='06-permission-sets-rbac.md'>Permission Sets</a>"]
-A --> B4["<a href='02-aws-identity-center-overview.md#aws-accounts'>AWS Accounts</a>"]
-A --> B5["<a href='02-aws-identity-center-overview.md#applications'>Applications</a>"]
-A --> B6["<a href='04-federation-theory.md#authentication-flow'>Authentication Flow</a>"]
+%% =============================
+%% ROOT NODE
+%% =============================
+A["<a href='../theory/02-aws-identity-center-overview.md'>AWS IAM Identity Center<br/>(Formerly AWS SSO)</a>"]:::blue
 
-%% ======================
-%% STYLE DEFINITIONS
-%% ======================
-classDef root fill:#1F618D,stroke:#ffffff,color:#ffffff,font-weight:bold;
-classDef section fill:#EAF2F8,stroke:#1B4F72,color:#1B2631;
-classDef item fill:#FDFEFE,stroke:#2E4053,color:#2E4053;
+%% =============================
+%% PRIMARY SECTIONS
+%% =============================
+A --> B1["<a href='../theory/02-aws-identity-center-overview.md#identity-source'>Identity Source</a>"]:::gold
+A --> B2["<a href='../theory/02-aws-identity-center-overview.md#users-and-groups'>Users & Groups</a>"]:::teal
+A --> B3["<a href='../theory/06-permission-sets-rbac.md'>Permission Sets</a>"]:::orange
+A --> B4["<a href='../theory/02-aws-identity-center-overview.md#aws-accounts'>AWS Accounts</a>"]:::slate
+A --> B5["<a href='../theory/02-aws-identity-center-overview.md#applications'>Applications</a>"]:::grey
+A --> B6["<a href='../theory/04-federation-theory.md#authentication-flow'>Authentication Flow</a>"]:::blue
 
-%% ======================
+%% =============================
 %% IDENTITY SOURCE (CLICKABLE)
-%% ======================
-B1 --> C1["<a href='04-federation-theory.md#identity-provider-idp'>Entra ID (External IdP)</a>"]:::item
-B1 --> C2["<a href='02-aws-identity-center-overview.md#aws-identity-center-directory'>AWS Identity Center Directory</a>"]:::item
-B1 --> C3["<a href='../labs/03-scim-provisioning.md'>SCIM Provisioning Setup</a>"]:::item
-B1 --> C4["<a href='../labs/02-entra-enterprise-app.md'>SAML or OIDC Federation</a>"]:::item
+%% =============================
+B1 --> C1["<a href='../theory/04-federation-theory.md#entra-id-external-idp'>Entra ID (External IdP)</a>"]:::gold
+B1 --> C2["<a href='../theory/02-aws-identity-center-overview.md#identity-center-directory'>AWS Identity Center Directory</a>"]:::gold
+B1 --> C3["<a href='../labs/03-scim-provisioning.md'>SCIM Provisioning Setup</a>"]:::gold
+B1 --> C4["<a href='../labs/02-entra-enterprise-app.md'>SAML / OIDC Federation</a>"]:::gold
 
-%% ======================
+%% =============================
 %% USERS & GROUPS (CLICKABLE)
-%% ======================
-B2 --> D1["<a href='../labs/03-scim-provisioning.md#provisioning-users'>Provisioned Users (SCIM)</a>"]:::item
-B2 --> D2["<a href='../labs/03-scim-provisioning.md#provisioning-groups'>Provisioned Groups</a>"]:::item
-B2 --> D3["<a href='06-permission-sets-rbac.md#group-to-role-mapping'>Group → Role Mapping</a>"]:::item
+%% =============================
+B2 --> D1["<a href='../labs/03-scim-provisioning.md'>Provisioned Users (SCIM)</a>"]:::teal
+B2 --> D2["<a href='../labs/03-scim-provisioning.md#group-sync'>Provisioned Groups</a>"]:::teal
+B2 --> D3["<a href='../theory/06-permission-sets-rbac.md#group-role-mapping'>Group → Role Mapping</a>"]:::teal
 
-%% ======================
+%% =============================
 %% PERMISSION SETS (CLICKABLE)
-%% ======================
-B3 --> E1["<a href='06-permission-sets-rbac.md#aws-managed-policies'>AWS Managed Policies</a>"]:::item
-B3 --> E2["<a href='06-permission-sets-rbac.md#custom-policies'>Custom JSON Policies</a>"]:::item
-B3 --> E3["<a href='06-permission-sets-rbac.md#session-duration'>Session Duration</a>"]:::item
-B3 --> E4["<a href='06-permission-sets-rbac.md#inline-permissions'>Inline Permissions</a>"]:::item
-B3 --> E5["<a href='06-permission-sets-rbac.md#rbac-hierarchy'>RBAC Role Modeling</a>"]:::item
+%% =============================
+B3 --> E1["<a href='../theory/06-permission-sets-rbac.md#aws-managed-policies'>AWS Managed Policies</a>"]:::orange
+B3 --> E2["<a href='../theory/06-permission-sets-rbac.md#custom-json-policies'>Custom JSON Policies</a>"]:::orange
+B3 --> E3["<a href='../theory/06-permission-sets-rbac.md#session-duration'>Session Duration</a>"]:::orange
+B3 --> E4["<a href='../theory/06-permission-sets-rbac.md#inline-permissions'>Inline Permissions</a>"]:::orange
+B3 --> E5["<a href='../theory/06-permission-sets-rbac.md#enterprise-rbac'>Enterprise RBAC</a>"]:::orange
 
-%% ======================
+%% =============================
 %% AWS ACCOUNTS (CLICKABLE)
-%% ======================
-B4 --> F1["<a href='02-aws-identity-center-overview.md#organizational-units-ous'>Organizational Units</a>"]:::item
-B4 --> F2["<a href='../labs/01-aws-identity-center.md#account-assignments'>Account Assignments</a>"]:::item
-B4 --> F3["<a href='06-permission-sets-rbac.md#least-privilege'>Least Privilege Boundaries</a>"]:::item
+%% =============================
+B4 --> F1["<a href='../theory/02-aws-identity-center-overview.md#organizational-units'>Organizational Units</a>"]:::slate
+B4 --> F2["<a href='../labs/01-aws-identity-center.md#account-assignments'>Account Assignments</a>"]:::slate
+B4 --> F3["<a href='../theory/06-permission-sets-rbac.md#least-privilege'>Least Privilege Boundaries</a>"]:::slate
 
-%% ======================
+%% =============================
 %% APPLICATIONS (CLICKABLE)
-%% ======================
-B5 --> G1["<a href='../labs/01-aws-identity-center.md#aws-console-access'>AWS Console</a>"]:::item
-B5 --> G2["<a href='02-aws-identity-center-overview.md#aws-cli-sso'>AWS CLI SSO Login</a>"]:::item
-B5 --> G3["<a href='02-aws-identity-center-overview.md#sdk-integration'>AWS SDK Integration</a>"]:::item
-B5 --> G4["<a href='../labs/02-entra-enterprise-app.md#saml-applications'>SAML Apps</a>"]:::item
+%% =============================
+B5 --> G1["<a href='../labs/01-aws-identity-center.md#console-access'>AWS Console Access</a>"]:::grey
+B5 --> G2["<a href='../theory/02-aws-identity-center-overview.md#aws-cli-sso'>AWS CLI (SSO)</a>"]:::grey
+B5 --> G3["<a href='../theory/02-aws-identity-center-overview.md#sdk-integration'>AWS SDK Integration</a>"]:::grey
+B5 --> G4["<a href='../labs/02-entra-enterprise-app.md#saml-applications'>SAML Applications</a>"]:::grey
 
-%% ======================
+%% =============================
 %% AUTHENTICATION FLOW (CLICKABLE)
-%% ======================
-B6 --> H1["<a href='04-federation-theory.md#user-authentication-flow'>User Initiates Access</a>"]:::item
-H1 --> H2["<a href='04-federation-theory.md#redirect-to-idp'>Redirect to Entra ID</a>"]:::item
-H2 --> H3["<a href='04-federation-theory.md#mfa-policy-evaluation'>MFA + Policy Evaluation</a>"]:::item
-H3 --> H4["<a href='04-federation-theory.md#oidc-token-issuance'>OIDC or SAML Token Issued</a>"]:::item
-H4 --> H5["<a href='06-permission-sets-rbac.md#permission-set-mapping'>Permission Set Mapping</a>"]:::item
-H5 --> H6["<a href='../labs/01-aws-identity-center.md#console-or-cli-access'>Console or CLI Access</a>"]:::item
-H6 --> H7["<a href='01-identity-foundations.md#zero-trust'>Zero Trust Enforcement</a>"]:::item
-
-%% APPLY ROOT STYLE
-A:::root
+%% =============================
+B6 --> H1["<a href='../theory/04-federation-theory.md#user-authentication'>User Initiates Access</a>"]:::blue
+H1 --> H2["<a href='../theory/04-federation-theory.md#entra-redirect'>Redirect to Entra ID</a>"]:::blue
+H2 --> H3["<a href='../theory/05-identity-governance.md#conditional-access'>MFA + Conditional Access</a>"]:::blue
+H3 --> H4["<a href='../theory/04-federation-theory.md#token-issuance'>Token Issuance</a>"]:::blue
+H4 --> H5["<a href='../theory/06-permission-sets-rbac.md#permission-set-selection'>Permission Set Mapping</a>"]:::blue
+H5 --> H6["<a href='../labs/01-aws-identity-center.md#cli-and-console'>Console / CLI Access</a>"]:::blue
+H6 --> H7["<a href='../theory/05-identity-governance.md#zero-trust'>Zero Trust Enforcement</a>"]:::blue
 ```
 
 
