@@ -3,7 +3,7 @@
 <img src="../diagrams/securethecloud-banner.png" alt="SecureTheCloud Banner" width="100%"/>
 
 # **SecureTheCloud Identity Academy — Volume 1**
-### **AWS IAM Identity Center ↔ Microsoft Entra Federation**
+### **AWS IAM Identity Center ↔ Microsoft Entra ID — SCIM User & Group Provisioning**
 
 🔗 https://SecureTheCloud.dev  
 📺 https://www.youtube.com/@SecureTheCloud-dev  
